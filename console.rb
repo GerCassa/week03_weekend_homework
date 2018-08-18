@@ -21,9 +21,15 @@ customer5.save()
 
 film1 = Film.new({'title' => 'Pulp Fiction', 'price' => 5})
 film1.save()
+film2 = Film.new({'title' => 'Back to the Future', 'price' => 6})
+film2.save()
 
 ticket1 = Ticket.new({'customer_id' => customer1.id, 'film_id' => film1.id})
 ticket1.save()
+ticket2 = Ticket.new({'customer_id' => customer1.id, 'film_id' => film2.id})
+ticket2.save()
+ticket3 = Ticket.new({'customer_id' => customer3.id, 'film_id' => film1.id})
+ticket3.save()
 
 
 binding.pry

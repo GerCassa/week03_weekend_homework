@@ -14,8 +14,8 @@ class Customer
 
   def save()
     sql = "INSERT INTO customers(name, funds)
-      VALUES ($1,$2)
-      RETURNING id"
+    VALUES ($1,$2)
+    RETURNING id"
     values = [@name, @funds]
     customer = SqlRunner.run(sql, values).first
     @id = customer['id'].to_i
@@ -37,27 +37,16 @@ class Customer
     SqlRunner.run(sql, values)
   end
 
-  # def films_booked()
-  #   sql = "SELECT films.title FROM customers
-  #   INNER JOIN tickets
-  #   ON tickets.customer_id = customers.id
-  #   INNER JOIN films
-  #   ON tickets.film_id = films.id
-  #   WHERE customer_id = $1"
-  #   values = [@id]
-  #   SqlRunner.run(sql, values)
-  #   Film.map_items(films)
-  # end
 
-    def films_booked()
+  def films_booked()
     sql = "SELECT films.*, tickets.*
     FROM films
     INNER JOIN tickets
     ON tickets.film_id = films.id
     WHERE customer_id = $1"
     values = [@id]
-    film_booked = SqlRunner.run(sql, values)
-    return Film.map_items(film_booked)
+    film_booked =     SqlRunner.run(sql, values)
+    return                Film.map_items(film_booked)
   end
 
   def self.map_items(customer_data)
