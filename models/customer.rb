@@ -28,20 +28,28 @@ class Customer
   end
 
   def update()
-    sql = "UPDATE films
-    SET ()"
-
+    sql = "UPDATE customers
+    SET (name, funds)
+    = ($1, $2)
+    WHERE id = $3"
+    values = [@name, @funds, @id]
+    SqlRunner.run(sql, values)
   end
 
-  def self.all()
-    sql = "SELECT * FROM films"
+  def self.map_items(customer_data)
+    result = customer_data.map { |customer| Customer.new(customer)}
+    return result
+  end
+
+  def Customer.all()
+    sql = "SELECT * FROM customers"
     values = []
-    films = SqlRunner.run(sql, values)
-    return self.map_items(films)
+    customers = SqlRunner.run(sql, values)
+    return self.map_items(customers)
   end
 
   def self.delete_all()
-    sql = "DELETE FROM films"
+    sql = "DELETE FROM customers"
     values = []
     SqlRunner.run(sql, values)
   end
